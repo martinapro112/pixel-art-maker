@@ -15,7 +15,8 @@ class App extends Component {
     baseColor: '#CCCCCC',
     pngLink: null,
     imageEdited: false,
-    dimensions: { x: dimensionsRange.x.max, y: dimensionsRange.y.max }
+    dimensions: { x: dimensionsRange.x.max, y: dimensionsRange.y.max },
+    mouseDown: false
   }
 
   resetPictureHandler = () => {
@@ -36,10 +37,34 @@ class App extends Component {
     this.setState({ pixels: pixels, pngLink: null });
   }
 
+  mouseDownHandler = () => {
+    this.setState({ mouseDown: true });
+  }
+
+  mouseUpHandler = () => {
+    this.setState({ mouseDown: false });
+  }
+
+  componentDidMount = () => {
+    window.addEventListener('mousedown', this.mouseDownHandler);
+    window.addEventListener('mouseup', this.mouseUpHandler);
+  }
+
+  componentWillUnmount = () => {
+    window.removeEventListener('mousedown', this.mouseDownHandler);
+    window.removeEventListener('mouseup', this.mouseUpHandler);
+  }
+
   setPixelColorHandler = (x, y) => {
     let pixels = this.state.pixels;
     pixels[y][x].color = this.state.currentColor;
     this.setState({ pixels: pixels, imageEdited: true });
+  }
+
+  hoverPixelColorHandler = (x, y) => {
+    if (this.state.mouseDown) {
+      this.setPixelColorHandler(x, y);
+    }
   }
 
   setCurrentColorHandler = (color) => {
@@ -87,6 +112,7 @@ class App extends Component {
             key={ y + '_' + x}
             color={ this.state.pixels[y][x].color }
             click={ this.setPixelColorHandler.bind(this, x, y) }
+            hover={ this.hoverPixelColorHandler.bind(this, x, y) }
           />
         );
       }
@@ -127,7 +153,7 @@ class App extends Component {
             onChangeComplete={ this.setCurrentColorHandler }
           />
         </div>
-        <button onClick={ this.exportToPngHandler } disabled={ this.state.pixels.length == 0 }>
+        <button onClick={ this.exportToPngHandler } disabled={ this.state.pixels.length === 0 }>
           { exportPng }
         </button>
         <div className="picture" style={{ height: this.state.dimensions.y * 18, width: this.state.dimensions.x * 18 }}>

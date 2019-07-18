@@ -8,6 +8,7 @@ class Pixel extends Component {
     mouseOverHandler = () => {
         this.setState({ hover: true });
         setTimeout(() => { this.setState({ hover: false }); }, 1000);
+        this.props.hover();
     }
       
     render() {
