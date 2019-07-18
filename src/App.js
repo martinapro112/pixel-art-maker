@@ -8,10 +8,16 @@ class App extends Component {
 		pixels: [],
     currentColor: '#000000',
     baseColor: '#CCCCCC',
-    pngLink: null
+    pngLink: null,
+    imageEdited: false
   }
 
   resetPictureHandler = () => {
+    if (this.state.imageEdited) {
+      let answer = window.confirm('All changes will be lost. Are you sure you want to do that?');
+      if (!answer) return;
+    }
+
     let pixels = [];
     let row = [];
     for (var y = 0; y < 50; y++) {
@@ -27,7 +33,7 @@ class App extends Component {
   setPixelColorHandler = (x, y) => {
     let pixels = this.state.pixels;
     pixels[y][x].color = this.state.currentColor;
-    this.setState({ pixels: pixels });
+    this.setState({ pixels: pixels, imageEdited: true });
   }
 
   setCurrentColorHandler = (color) => {

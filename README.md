@@ -6,10 +6,10 @@ Working features:
 - pixel reacts to hover event  
 - changable color  
 - image export  
+- warning message  
 
 Planned features:
 - changable image size    
 - save and load  
 - preset image(s)  
-- warning message  
 - drawing while holding mouse  
