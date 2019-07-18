@@ -5,10 +5,11 @@ Working features:
 - pixel color can be changed by clicking on it  
 - pixel reacts to hover event  
 - changable color  
+- image export  
 
 Planned features:
 - changable image size    
-- image export  
 - save and load  
 - preset image(s)  
 - warning message  
+- drawing while holding mouse  

@@ -4,7 +4,7 @@
 
 button {
   height: 89px;
-  padding: 15px 32px;
+  padding: 0 32px;
   border: none;
   border-radius: 8px;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 2px 10px, rgba(0, 0, 0, 0.16) 0px 2px 5px;
@@ -15,10 +15,15 @@ button {
   text-decoration: none;
   text-transform: uppercase;
   text-align: center;
+  line-height: 20px;
 
   -webkit-transition-duration: 0.4s;
   transition-duration: 0.4s;
   cursor: pointer;
+}
+
+a {
+  color: black;
 }
 
 button, .picker {
