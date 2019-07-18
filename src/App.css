@@ -1,0 +1,47 @@
+.app {
+  text-align: center;
+}
+
+button {
+  margin: 16px 0;
+  padding: 15px 32px;
+  border: none;
+  border-radius: 8px;
+
+  background-color: #E67E22;
+  color: #FFFFFF;
+
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  text-align: center;
+
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.picture {
+  display: block;
+  margin: auto;
+  height: 900px;
+  width: 900px;
+}
+
+.pixel {
+  display: inline-block;
+  height: 15px;
+  width: 15px;
+  border: 1px solid #D3D3D3;
+  margin: -2px 0.5px;
+  padding: 0;
+}
+
+.hover {
+  animation: darken 2s;
+}
+
+@keyframes darken {
+  from { filter: brightness(80%); }
+  to { filter: brightness(100%); }
+}
