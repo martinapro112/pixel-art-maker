@@ -7,9 +7,9 @@ Working features:
 - changable color  
 - image export  
 - warning message  
-
-Planned features:
-- changable image size    
+- changable image size   
+  
+Planned features: 
 - save and load  
 - preset image(s)  
 - drawing while holding mouse  
