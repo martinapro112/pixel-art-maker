@@ -19,6 +19,11 @@ class Pixel extends Component {
         this.props.setImageEdited();
     }
 
+    resetPixelColorHandler = (event) => {
+        event.preventDefault();
+        this.setState({ color: this.props.baseColor });
+    }
+
     componentDidUpdate = (prevProps) => {
         if (this.props.loadingPixelColors && !prevProps.loadingPixelColors) {
             this.props.setPixelColor(this.props.coordinates.y, this.props.coordinates.x, this.state.color);
@@ -35,6 +40,7 @@ class Pixel extends Component {
                 className={ 'pixel ' + (this.state.hover ? 'hover' : '') }
                 onMouseEnter={ this.mouseOverHandler }
                 onClick={ this.setPixelColorHandler }
+                onContextMenu={ this.resetPixelColorHandler }
                 style={{ backgroundColor: this.state.color }}
             ></div>
         );
