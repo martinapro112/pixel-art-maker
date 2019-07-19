@@ -1,73 +1,73 @@
 .app {
-  text-align: center;
+    text-align: center;
 }
 
 button, .picker, .dimensions {
-  display: inline-block;
-  vertical-align: top;
-  margin: 20px 5px;
+    display: inline-block;
+    vertical-align: top;
+    margin: 20px 5px;
 
-  height: 90px;
-  border: none;
-  border-radius: 8px;
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 2px 10px, rgba(0, 0, 0, 0.16) 0px 2px 5px;
-  border-radius: 2px;
-  background: rgb(255, 255, 255);
+    height: 90px;
+    border: none;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 2px 10px, rgba(0, 0, 0, 0.16) 0px 2px 5px;
+    border-radius: 2px;
+    background: rgb(255, 255, 255);
 
-  font-size: 16px;
-  text-decoration: none;
-  text-transform: uppercase;
-  text-align: center;
-  line-height: 20px;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 20px;
 
-  -webkit-transition-duration: 0.4s;
-  transition-duration: 0.4s;
-  cursor: pointer;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    cursor: pointer;
 }
 
 button, .dimensions {
-  height: 89px;
-  padding: 0 15px;
+    height: 89px;
+    padding: 0 15px;
 }
 
 a {
-  color: black;
+    color: black;
 }
 
 .dimension {
-  height: 16px;
-  display: block;
-  margin: 15px;
+    height: 16px;
+    display: block;
+    margin: 15px;
 }
 
 .dimension-label {
-  display: inline-block;
-  margin-right: 10px;
+    display: inline-block;
+    margin-right: 10px;
 }
 
 .dimension-input {
-  width: 50px;
+    width: 50px;
 }
 
 .picture {
-  display: block;
-  margin: auto;
+    display: block;
+    margin: auto;
 }
 
 .pixel {
-  display: inline-block;
-  height: 15px;
-  width: 15px;
-  border: 1px solid #D3D3D3;
-  margin: -2px 0.5px;
-  padding: 0;
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    border: 1px solid #D3D3D3;
+    margin: -2px 0.5px;
+    padding: 0;
 }
 
 .hover {
-  animation: darken 2s;
+    animation: darken 2s;
 }
 
 @keyframes darken {
-  from { filter: brightness(80%); }
-  to { filter: brightness(100%); }
+    from { filter: brightness(80%); }
+    to { filter: brightness(100%); }
 }
