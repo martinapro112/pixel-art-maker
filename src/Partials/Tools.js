@@ -3,23 +3,39 @@ import { CompactPicker } from 'react-color';
 var dateFormat = require('dateformat');
 
 const Tools = (props) => {
-    let exportPng = <span>export<br />to<br />png</span>;
+    let exportPng =
+        <button onClick={ props.exportToPngHandler } disabled={ props.disabledExport }>
+            export<br />to<br />png
+        </button>;
     if (props.pngLoading) {
-        exportPng = <span>LOADING</span>;
+        exportPng = <button><div id="load"></div></button>;
     }
     else if (props.pngLink) {
         let date = new Date();
         exportPng =
-            <a
-                href={ props.pngLink }
-                download={ 'pixel_art_' + dateFormat(date, 'yyyy-mm-dd-HH-MM-ss') + '.png' }
-            >
-                download<br />png
-            </a>;
+            <button>
+                <a
+                    href={ props.pngLink }
+                    download={ 'pixel_art_' + dateFormat(date, 'yyyy-mm-dd-HH-MM-ss') + '.png' }
+                    onClick={ props.imageDownloaded }
+                >
+                    download<br />png
+                </a>
+            </button>;
     }
 
     return (
         <div>
+            <button onClick={ props.resetPictureHandler }>
+                new<br />image
+            </button>
+            { exportPng }
+            <div className="picker">
+                <CompactPicker
+                    color={ props.currentColor }
+                    onChangeComplete={ props.setCurrentColorHandler }
+                />
+            </div>
             <div className="dimensions">
                 <div className="dimension">
                     <span className="dimension-label">y</span>
@@ -42,16 +58,6 @@ const Tools = (props) => {
                     />
                 </div>
             </div>
-            <button onClick={ props.resetPictureHandler }>new<br />image</button>
-            <div className="picker">
-            <CompactPicker
-                color={ props.currentColor }
-                onChangeComplete={ props.setCurrentColorHandler }
-            />
-            </div>
-            <button onClick={ props.exportToPngHandler } disabled={ props.disabledExport }>
-                { exportPng }
-            </button>
         </div>
     );
 }

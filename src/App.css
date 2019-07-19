@@ -15,6 +15,7 @@ button, .picker, .dimensions {
     background: rgb(255, 255, 255);
 
     font-size: 16px;
+    font-weight: 600;
     text-decoration: none;
     text-transform: uppercase;
     text-align: center;
@@ -30,8 +31,9 @@ button, .dimensions {
     padding: 0 15px;
 }
 
-a {
-    color: black;
+button, a {
+    background: #D6EAF8;
+    color: #2471A3;
 }
 
 .dimension {
@@ -70,4 +72,26 @@ a {
 @keyframes darken {
     from { filter: brightness(80%); }
     to { filter: brightness(100%); }
+}
+
+#load {
+    border: 16px solid #fff;
+    border-radius: 50%;
+    border-top: 16px solid #2471A3;
+    width: 40px;
+    height: 40px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+    pointer-events: none;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }

@@ -66,24 +66,26 @@ class App extends Component {
             }
         }
 
-        var canvas = document.createElement('canvas');
+        setTimeout(() => {
+            var canvas = document.createElement('canvas');
 
-        canvas.width = this.state.pixels[0].length * 16;
-        canvas.height = this.state.pixels.length * 16;
-
-        var context = canvas.getContext('2d');
-
-        let pixels = this.state.pixels;
-
-        for (y = 0; y < pixels.length; y++) {
-            for (x = 0; x < pixels[y].length; x++) {
-                context.fillStyle = pixels[y][x].color;
-                context.fillRect(x * 16, y * 16, 15, 15);
-                pixels[y][x].loaded = false;
+            canvas.width = this.state.pixels[0].length * 16;
+            canvas.height = this.state.pixels.length * 16;
+    
+            var context = canvas.getContext('2d');
+    
+            let pixels = this.state.pixels;
+    
+            for (y = 0; y < pixels.length; y++) {
+                for (x = 0; x < pixels[y].length; x++) {
+                    context.fillStyle = pixels[y][x].color;
+                    context.fillRect(x * 16, y * 16, 15, 15);
+                    pixels[y][x].loaded = false;
+                }
             }
-        }
-
-        this.setState({ pngLink: canvas.toDataURL(), loadingPixelColors: false, pixels: pixels });
+    
+            this.setState({ pngLink: canvas.toDataURL(), loadingPixelColors: false, pixels: pixels });
+        }, 1000); 
     }
 
     setPixelColorHandler = (y, x, color) => {
@@ -103,6 +105,10 @@ class App extends Component {
 
     exportToPngHandler = () => {
         this.setState({ loadingPixelColors: true });
+    }
+
+    imageDownloadedHandler = () => {
+        this.setState({ pngLink: null });
     }
 
     setDimensionHandler = (coordinate, event) => {
@@ -147,11 +153,13 @@ class App extends Component {
                     dimensions={ this.state.dimensions }
                     currentColor={ this.state.currentColor }
                     disabledExport={ this.state.pixels.length === 0 }
+                    pngLoading={ this.state.loadingPixelColors }
                     pngLink={ this.state.pngLink }
                     setDimensionHandler={ this.setDimensionHandler }
                     resetPictureHandler={ this.resetPictureHandler }
                     setCurrentColorHandler={ this.setCurrentColorHandler }
                     exportToPngHandler={ this.exportToPngHandler }
+                    imageDownloaded={ this.imageDownloadedHandler }
                 />
                 <div className="picture" style={{ height: this.state.dimensions.y * 18, width: this.state.dimensions.x * 18 }}>
                     { pixels }
