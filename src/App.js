@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Pixel from './Partials/Pixel';
 import Tools from './Partials/Tools';
+import Mesh from './Images/Mesh';
 
 const dimensionsRange = {
     y: { default: 32, min: 10, max: 50 },
@@ -18,7 +19,8 @@ class App extends Component {
         dimensions: { x: dimensionsRange.x.default, y: dimensionsRange.y.default },
         mouseDown: false,
         loadingPixelColors: false,
-        loadedPixels: 0
+        loadedPixels: 0,
+        presetImage: false
     }
 
     resetPictureHandler = () => {
@@ -36,7 +38,7 @@ class App extends Component {
             pixels.push(row);
             row = [];
         }
-        this.setState({ pixels: pixels, pngLink: null, imageEdited: false });
+        this.setState({ pixels: pixels, pngLink: null, imageEdited: false, presetImage: false });
     }
 
     mouseDownHandler = () => {
@@ -108,6 +110,7 @@ class App extends Component {
     }
 
     imageDownloadedHandler = () => {
+        console.log(JSON.stringify(this.state.pixels));
         this.setState({ pngLink: null });
     }
 
@@ -125,6 +128,30 @@ class App extends Component {
         this.setState({ dimensions: dimensions });
     }
 
+    presetImageHandler = (image) => {
+        if (this.props.imageEdited) {
+            let answer = window.confirm('All changes will be lost. Are you sure you want to do that?');
+            if (!answer) return;
+        }
+
+        switch (image) {
+            case 'mesh':
+                this.setState({ pixels: Mesh, presetImage: true });
+                break;
+            case 'todo1':
+                this.setState({ pixels: Mesh, presetImage: true });
+                break;
+            case 'todo2':
+                this.setState({ pixels: Mesh, presetImage: true });
+                break;
+            case 'todo3':
+                this.setState({ pixels: Mesh, presetImage: true });
+                break;
+            default:
+                break;
+        }
+    }
+
     render() {
         let pixels = [];
         for (var y = 0; y < this.state.pixels.length; y++) {
@@ -135,6 +162,7 @@ class App extends Component {
                         coordinates={{ y: y, x: x }}
                         currentColor={ this.state.currentColor }
                         baseColor={ baseColor }
+                        color={ this.state.presetImage ? this.state.pixels[y][x].color : baseColor }
                         mouseDown={ this.state.mouseDown }
                         loadingPixelColors={ this.state.loadingPixelColors }
                         imageEdited={ this.state.imageEdited }
@@ -160,6 +188,7 @@ class App extends Component {
                     setCurrentColorHandler={ this.setCurrentColorHandler }
                     exportToPngHandler={ this.exportToPngHandler }
                     imageDownloaded={ this.imageDownloadedHandler }
+                    presetImageHandler={ this.presetImageHandler }
                 />
                 <div className="picture" style={{ height: this.state.dimensions.y * 18, width: this.state.dimensions.x * 18 }}>
                     { pixels }

@@ -32,6 +32,16 @@ class Pixel extends Component {
         if (!this.props.imageEdited && prevProps.imageEdited) {
             this.setState({ color: this.props.baseColor });
         }
+
+        if (this.props.color !== prevProps.color) {
+            this.setState({ color: this.props.color });
+        }
+    }
+
+    componentDidMount = () => {
+        if (this.props.color !== this.props.baseColor) {
+            this.setState({ color: this.props.color });
+        }
     }
       
     render() {

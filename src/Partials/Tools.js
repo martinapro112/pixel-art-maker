@@ -4,7 +4,10 @@ var dateFormat = require('dateformat');
 
 const Tools = (props) => {
     let exportPng =
-        <button onClick={ props.exportToPngHandler } disabled={ props.disabledExport }>
+        <button
+            onClick={ props.exportToPngHandler }
+            disabled={ props.disabledExport } className={ props.disabledExport ? 'disabled' : null}
+        >
             export<br />to<br />png
         </button>;
     if (props.pngLoading) {
@@ -57,6 +60,12 @@ const Tools = (props) => {
                         onChange={ props.setDimensionHandler.bind(this, 'x') }
                     />
                 </div>
+            </div>
+            <div className="mini-button-group">
+                <button className="mini-button" onClick={ props.presetImageHandler.bind(this, 'mesh') }>mesh</button><br />
+                <button className="mini-button" onClick={ props.presetImageHandler.bind(this, 'todo1') }>todo</button><br />
+                <button className="mini-button" onClick={ props.presetImageHandler.bind(this, 'todo2') }>todo</button><br />
+                <button className="mini-button" onClick={ props.presetImageHandler.bind(this, 'todo3') }>todo</button>
             </div>
         </div>
     );

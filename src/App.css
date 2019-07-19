@@ -6,6 +6,7 @@ button, .picker, .dimensions {
     display: inline-block;
     vertical-align: top;
     margin: 20px 5px;
+    padding: 0 15px;
 
     height: 90px;
     border: none;
@@ -26,14 +27,39 @@ button, .picker, .dimensions {
     cursor: pointer;
 }
 
-button, .dimensions {
+button:hover {
+    background: #2C3E50;
+}
+
+button.disabled {
+    background: #D5D8DC;
+    color: #808B96;
+}
+
+.picker {
+    padding: 0;
+}
+
+button, .dimensions, .mini-button-group {
     height: 89px;
-    padding: 0 15px;
+    display: inline-block;
+    vertical-align: top;
+    margin: 20px 5px;
 }
 
 button, a {
     background: #D6EAF8;
     color: #2471A3;
+}
+
+
+.mini-button {
+    height: 21px;
+    min-width: 98px;
+    padding: 0 20px;
+    margin: 0 0 1px 0;
+    background: #FAE5D3;
+    color: #CA6F1E;
 }
 
 .dimension {
