@@ -2,13 +2,27 @@ import React, { Component } from 'react';
 
 class Pixel extends Component {
     state = {
-		hover: false
+        hover: false,
+        color: '#CCCCCC'
     }
 
     mouseOverHandler = () => {
         this.setState({ hover: true });
         setTimeout(() => { this.setState({ hover: false }); }, 1000);
-        this.props.hover();
+        if (this.props.mouseDown) {
+            this.setPixelColorHandler();
+        }
+    }
+
+    setPixelColorHandler = () => {
+        this.setState({ color: this.props.currentColor });
+        this.props.edited();
+    }
+
+    componentDidUpdate = (prevProps) => {
+        if (this.props.loadingPixelColors && !prevProps.loadingPixelColors) {
+            this.props.setPixelColor(this.props.coordinates.y, this.props.coordinates.x, this.state.color);
+        }
     }
       
     render() {
@@ -16,8 +30,8 @@ class Pixel extends Component {
             <div
                 className={ 'pixel ' + (this.state.hover ? 'hover' : '') }
                 onMouseEnter={ this.mouseOverHandler }
-                onClick={ this.props.click }
-                style={{ backgroundColor: this.props.color }}
+                onClick={ this.setPixelColorHandler }
+                style={{ backgroundColor: this.state.color }}
             ></div>
         );
     }

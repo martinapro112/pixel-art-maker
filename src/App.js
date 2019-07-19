@@ -4,19 +4,21 @@ import Pixel from './Partials/Pixel';
 import { CompactPicker } from 'react-color';
 
 const dimensionsRange = {
-  y: { min: 1, max: 50 },
-  x: { min: 1, max: 100 }
+  y: { default: 32, min: 10, max: 50 },
+  x: { default: 32, min: 10, max: 100 }
 }
+const baseColor = '#CCCCCC';
 
 class App extends Component {
   state = {
 		pixels: [],
     currentColor: '#000000',
-    baseColor: '#CCCCCC',
     pngLink: null,
     imageEdited: false,
-    dimensions: { x: dimensionsRange.x.max, y: dimensionsRange.y.max },
-    mouseDown: false
+    dimensions: { x: dimensionsRange.x.default, y: dimensionsRange.y.default },
+    mouseDown: false,
+    loadingPixelColors: false,
+    loadedPixels: 0
   }
 
   resetPictureHandler = () => {
@@ -29,7 +31,7 @@ class App extends Component {
     let row = [];
     for (var y = 0; y < this.state.dimensions.y; y++) {
       for (var x = 0; x < this.state.dimensions.x; x++) {
-        row.push({ color: this.state.baseColor });
+        row.push({ color: baseColor, loaded: false });
       }
       pixels.push(row);
       row = [];
@@ -55,23 +57,15 @@ class App extends Component {
     window.removeEventListener('mouseup', this.mouseUpHandler);
   }
 
-  setPixelColorHandler = (x, y) => {
-    let pixels = this.state.pixels;
-    pixels[y][x].color = this.state.currentColor;
-    this.setState({ pixels: pixels, imageEdited: true });
-  }
+  componentDidUpdate = () => {
+    if (!this.state.loadingPixelColors || this.state.pixels.length === 0) return;
 
-  hoverPixelColorHandler = (x, y) => {
-    if (this.state.mouseDown) {
-      this.setPixelColorHandler(x, y);
+    for (var y = 0; y < this.state.pixels.length; y++) {
+      for (var x = 0; x < this.state.pixels[y].length; x++) {
+        if (!this.state.pixels[y][x].loaded) return;
+      }
     }
-  }
 
-  setCurrentColorHandler = (color) => {
-    this.setState({ currentColor: color.hex });
-  }
-
-  exportToPngHandler = () => {
     var canvas = document.createElement('canvas');
 
     canvas.width = this.state.pixels[0].length * 16;
@@ -79,14 +73,36 @@ class App extends Component {
 
     var context = canvas.getContext('2d');
 
-    for (var y = 0; y < this.state.pixels.length; y++) {
-      for (var x = 0; x < this.state.pixels[y].length; x++) {
-        context.fillStyle = this.state.pixels[y][x].color;
+    let pixels = this.state.pixels;
+
+    for (y = 0; y < pixels.length; y++) {
+      for (x = 0; x < pixels[y].length; x++) {
+        context.fillStyle = pixels[y][x].color;
         context.fillRect(x * 16, y * 16, 15, 15);
+        pixels[y][x].loaded = false;
       }
     }
 
-    this.setState({ pngLink: canvas.toDataURL() });
+    this.setState({ pngLink: canvas.toDataURL(), loadingPixelColors: false, pixels: pixels });
+  }
+
+  setPixelColorHandler = (y, x, color) => {
+    let pixels = this.state.pixels;
+    pixels[y][x].color = color;
+    pixels[y][x].loaded = true;
+    this.setState({ pixels: pixels });
+  }
+
+  setCurrentColorHandler = (color) => {
+    this.setState({ currentColor: color.hex });
+  }
+
+  imageEdited = () => {
+    this.setState({ imageEdited: true });
+  }
+
+  exportToPngHandler = () => {
+    this.setState({ loadingPixelColors: true });
   }
 
   setDimension = (coordinate, event) => {
@@ -110,9 +126,13 @@ class App extends Component {
         pixels.push(
           <Pixel
             key={ y + '_' + x}
-            color={ this.state.pixels[y][x].color }
-            click={ this.setPixelColorHandler.bind(this, x, y) }
-            hover={ this.hoverPixelColorHandler.bind(this, x, y) }
+            edited={ this.imageEdited }
+            currentColor={ this.state.currentColor }
+            color={ baseColor }
+            mouseDown={ this.state.mouseDown }
+            loadingPixelColors={ this.state.loadingPixelColors }
+            setPixelColor={ this.setPixelColorHandler }
+            coordinates={{ y: y, x: x }}
           />
         );
       }
