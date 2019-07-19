@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Pixel extends Component {
     state = {
         hover: false,
-        color: '#CCCCCC'
+        color: this.props.baseColor
     }
 
     mouseOverHandler = () => {
@@ -16,12 +16,16 @@ class Pixel extends Component {
 
     setPixelColorHandler = () => {
         this.setState({ color: this.props.currentColor });
-        this.props.edited();
+        this.props.setImageEdited();
     }
 
     componentDidUpdate = (prevProps) => {
         if (this.props.loadingPixelColors && !prevProps.loadingPixelColors) {
             this.props.setPixelColor(this.props.coordinates.y, this.props.coordinates.x, this.state.color);
+        }
+
+        if (!this.props.imageEdited && prevProps.imageEdited) {
+            this.setState({ color: this.props.baseColor });
         }
     }
       

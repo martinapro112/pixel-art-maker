@@ -36,7 +36,7 @@ class App extends Component {
             pixels.push(row);
             row = [];
         }
-        this.setState({ pixels: pixels, pngLink: null });
+        this.setState({ pixels: pixels, pngLink: null, imageEdited: false });
     }
 
     mouseDownHandler = () => {
@@ -124,16 +124,17 @@ class App extends Component {
         for (var y = 0; y < this.state.pixels.length; y++) {
             for (var x = 0; x < this.state.pixels[y].length; x++) {
                 pixels.push(
-                <Pixel
-                    key={ y + '_' + x}
-                    edited={ this.setImageEditedHandler }
-                    currentColor={ this.state.currentColor }
-                    color={ baseColor }
-                    mouseDown={ this.state.mouseDown }
-                    loadingPixelColors={ this.state.loadingPixelColors }
-                    setPixelColor={ this.setPixelColorHandler }
-                    coordinates={{ y: y, x: x }}
-                />
+                    <Pixel
+                        key={ y + '_' + x}
+                        coordinates={{ y: y, x: x }}
+                        currentColor={ this.state.currentColor }
+                        baseColor={ baseColor }
+                        mouseDown={ this.state.mouseDown }
+                        loadingPixelColors={ this.state.loadingPixelColors }
+                        imageEdited={ this.state.imageEdited }
+                        setPixelColor={ this.setPixelColorHandler }
+                        setImageEdited={ this.setImageEditedHandler }
+                    />
                 );
             }
             pixels.push(<br key={ y } />);
