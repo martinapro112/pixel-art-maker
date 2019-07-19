@@ -1,10 +1,21 @@
 import React from 'react';
 import { CompactPicker } from 'react-color';
+var dateFormat = require('dateformat');
 
 const Tools = (props) => {
     let exportPng = <span>export<br />to<br />png</span>;
-    if (props.pngLink) {
-      exportPng = <a href={ props.pngLink } download="my.png">donwload png</a>;
+    if (props.pngLoading) {
+        exportPng = <span>LOADING</span>;
+    }
+    else if (props.pngLink) {
+        let date = new Date();
+        exportPng =
+            <a
+                href={ props.pngLink }
+                download={ 'pixel_art_' + dateFormat(date, 'yyyy-mm-dd-HH-MM-ss') + '.png' }
+            >
+                download<br />png
+            </a>;
     }
 
     return (
