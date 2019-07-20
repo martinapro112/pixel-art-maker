@@ -9,7 +9,5 @@ Working features:
 - warning message  
 - changable image size  
 - drawing while holding mouse   
-  
-Planned features: 
-- save and load  
+- right click erases pixel color   
 - preset image(s)  
