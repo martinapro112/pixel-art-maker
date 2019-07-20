@@ -190,7 +190,11 @@ class App extends Component {
                     imageDownloaded={ this.imageDownloadedHandler }
                     presetImageHandler={ this.presetImageHandler }
                 />
-                <div className="picture" style={{ height: this.state.dimensions.y * 18, width: this.state.dimensions.x * 18 }}>
+                <div className="picture"
+                    style={{
+                        height: this.state.pixels.length * 18,
+                        width: this.state.pixels.length > 0 ? this.state.pixels[0].length * 18 : 0
+                    }}>
                     { pixels }
                 </div>
             </div>
