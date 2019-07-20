@@ -29,7 +29,7 @@ const Tools = (props) => {
 
     return (
         <div>
-            <button onClick={ props.resetPictureHandler }>
+            <button onClick={ props.resetImageHandler }>
                 new<br />image
             </button>
             { exportPng }

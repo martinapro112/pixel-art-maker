@@ -23,24 +23,6 @@ class App extends Component {
         presetImage: false
     }
 
-    resetPictureHandler = () => {
-        if (this.state.imageEdited) {
-            let answer = window.confirm('All changes will be lost. Are you sure you want to do that?');
-            if (!answer) return;
-        }
-
-        let pixels = [];
-        let row = [];
-        for (var y = 0; y < this.state.dimensions.y; y++) {
-            for (var x = 0; x < this.state.dimensions.x; x++) {
-                row.push({ color: baseColor, loaded: false });
-            }
-            pixels.push(row);
-            row = [];
-        }
-        this.setState({ pixels: pixels, pngLink: null, imageEdited: false, presetImage: false });
-    }
-
     mouseDownHandler = () => {
         this.setState({ mouseDown: true });
     }
@@ -128,11 +110,32 @@ class App extends Component {
         this.setState({ dimensions: dimensions });
     }
 
-    presetImageHandler = (image) => {
-        if (this.props.imageEdited) {
+    changesTestFailed = () => {
+        if (this.state.imageEdited) {
             let answer = window.confirm('All changes will be lost. Are you sure you want to do that?');
-            if (!answer) return;
+            return !answer;
+        } else {
+            return false;
         }
+    }
+
+    resetImageHandler = () => {
+        if (this.changesTestFailed()) return;
+
+        let pixels = [];
+        let row = [];
+        for (var y = 0; y < this.state.dimensions.y; y++) {
+            for (var x = 0; x < this.state.dimensions.x; x++) {
+                row.push({ color: baseColor, loaded: false });
+            }
+            pixels.push(row);
+            row = [];
+        }
+        this.setState({ pixels: pixels, pngLink: null, imageEdited: false, presetImage: false });
+    }
+
+    presetImageHandler = (image) => {
+        if (this.changesTestFailed()) return;
 
         switch (image) {
             case 'mesh':
@@ -184,13 +187,13 @@ class App extends Component {
                     pngLoading={ this.state.loadingPixelColors }
                     pngLink={ this.state.pngLink }
                     setDimensionHandler={ this.setDimensionHandler }
-                    resetPictureHandler={ this.resetPictureHandler }
+                    resetImageHandler={ this.resetImageHandler }
                     setCurrentColorHandler={ this.setCurrentColorHandler }
                     exportToPngHandler={ this.exportToPngHandler }
                     imageDownloaded={ this.imageDownloadedHandler }
                     presetImageHandler={ this.presetImageHandler }
                 />
-                <div className="picture"
+                <div className="image"
                     style={{
                         height: this.state.pixels.length * 18,
                         width: this.state.pixels.length > 0 ? this.state.pixels[0].length * 18 : 0
