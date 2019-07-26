@@ -19,6 +19,7 @@ class App extends Component {
         pngLink: null,
         imageEdited: false,
         dimensions: { x: dimensionsRange.x.default, y: dimensionsRange.y.default },
+        wrongDimensions: false,
         mouseDown: false,
         loadingPixelColors: false,
         loadedPixels: 0,
@@ -102,14 +103,12 @@ class App extends Component {
         let dimensions = this.state.dimensions;
         dimensions[coordinate] = event.target.value;
 
-        if (dimensions[coordinate] < dimensionsRange[coordinate].min) {
-            dimensions[coordinate] = dimensionsRange[coordinate].min;
+        if ((dimensions[coordinate] < dimensionsRange[coordinate].min) || 
+            (dimensions[coordinate] > dimensionsRange[coordinate].max)) {
+            this.setState({ wrongDimensions: true });
+        } else {
+            this.setState({ dimensions: dimensions, wrongDimensions: false });
         }
-        if (dimensions[coordinate] > dimensionsRange[coordinate].max) {
-            dimensions[coordinate] = dimensionsRange[coordinate].max;
-        }
-
-        this.setState({ dimensions: dimensions });
     }
 
     changesTestFailed = () => {
@@ -123,6 +122,10 @@ class App extends Component {
 
     resetImageHandler = () => {
         if (this.changesTestFailed()) return;
+        if (this.state.wrongDimensions) {
+            window.confirm('Please set the dimensions into the allowed range.');
+            return;
+        }
 
         let pixels = [];
         let row = [];
@@ -139,22 +142,17 @@ class App extends Component {
     presetImageHandler = (image) => {
         if (this.changesTestFailed()) return;
 
+        let imagePixels = [];
+
         switch (image) {
-            case 'mesh':
-                this.setState({ pixels: Mesh, presetImage: true });
-                break;
-            case 'man':
-                this.setState({ pixels: Man, presetImage: true });
-                break;
-            case 'rainbow':
-                this.setState({ pixels: Rainbow, presetImage: true });
-                break;
-            case 'todo':
-                this.setState({ pixels: Mesh, presetImage: true });
-                break;
-            default:
-                break;
+            case 'mesh':    imagePixels = Mesh;     break;
+            case 'man':     imagePixels = Man;      break;
+            case 'rainbow': imagePixels = Rainbow;  break;
+            case 'todo':    imagePixels = Mesh;     break;
+            default: break;
         }
+
+        this.setState({ pixels: imagePixels, presetImage: true });
     }
 
     render() {
@@ -184,6 +182,7 @@ class App extends Component {
                 <Tools
                     dimensionsRange={ dimensionsRange }
                     dimensions={ this.state.dimensions }
+                    wrongDimensions={ this.state.wrongDimensions }
                     currentColor={ this.state.currentColor }
                     disabledExport={ this.state.pixels.length === 0 }
                     pngLoading={ this.state.loadingPixelColors }

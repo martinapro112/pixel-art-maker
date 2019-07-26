@@ -27,6 +27,36 @@ const Tools = (props) => {
             </button>;
     }
 
+    let dimensions = [];
+    ['x', 'y'].forEach(dimension => {
+        dimensions.push(
+            <div className="dimension">
+                <span className="dimension-label">{ dimension }</span>
+                <input
+                    type="number" name={ dimension }
+                    className={
+                        'dimension-input ' + 
+                        (
+                            props.dimensionsRange[dimension].max < props.dimensions[dimension] ||
+                            props.dimensionsRange[dimension].min > props.dimensions[dimension]
+                            ? 'wrong-entry' : ''
+                        )
+                    }
+                    value={ props.dimensions[dimension] }
+                    onChange={ props.setDimensionHandler.bind(this, dimension) }
+                />
+                {
+                    props.dimensionsRange[dimension].max < props.dimensions[dimension] ?
+                    <span className="tooltip">Cannot be more than { props.dimensionsRange[dimension].max }</span> : ''
+                }
+                {
+                    props.dimensionsRange[dimension].min > props.dimensions[dimension] ?
+                    <span className="tooltip">Cannot be less than { props.dimensionsRange[dimension].min }</span> : ''
+                }
+            </div>
+        );
+    });
+
     return (
         <div>
             <button onClick={ props.resetImageHandler }>
@@ -40,26 +70,7 @@ const Tools = (props) => {
                 />
             </div>
             <div className="dimensions">
-                <div className="dimension">
-                    <span className="dimension-label">y</span>
-                    <input
-                        type="number" name="y"
-                        min={ props.dimensionsRange.y.min } max={ props.dimensionsRange.y.max }
-                        className="dimension-input"
-                        value={ props.dimensions.y }
-                        onChange={ props.setDimensionHandler.bind(this, 'y') }
-                    />
-                </div>
-                <div className="dimension">
-                    <span className="dimension-label">x</span>
-                    <input
-                        type="number" name="x"
-                        min={ props.dimensionsRange.x.min } max={ props.dimensionsRange.x.max }
-                        className="dimension-input"
-                        value={ props.dimensions.x }
-                        onChange={ props.setDimensionHandler.bind(this, 'x') }
-                    />
-                </div>
+                { dimensions }
             </div>
             <div className="mini-button-group">
                 <button className="mini-button" onClick={ props.presetImageHandler.bind(this, 'mesh') }>mesh</button><br />
