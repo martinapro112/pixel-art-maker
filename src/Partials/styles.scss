@@ -1,0 +1,130 @@
+.pixel {
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    border: 1px solid $light-grey;
+    margin: -2px 0.5px;
+    padding: 0;
+
+    &.hover {
+        animation: darken 2s;
+    }
+}
+
+@keyframes darken {
+    from { filter: brightness(80%); }
+    to { filter: brightness(100%); }
+}
+
+#tools {
+    background-color: $light-grey;
+    margin-bottom: 20px;
+
+    .tool, button.tool {
+        display: inline-block;
+        vertical-align: top;
+        margin: 20px 5px;
+        padding: 0 15px;
+
+        height: 90px;
+        border: none;
+        border-radius: 8px;
+        box-shadow: rgba(0, 0, 0, 0.12) 0px 2px 10px, rgba(0, 0, 0, 0.16) 0px 2px 5px;
+        border-radius: 2px;
+        background: $white;
+
+        font-size: 16px;
+        font-weight: 600;
+        text-decoration: none;
+        text-transform: uppercase;
+        text-align: center;
+        line-height: 20px;
+
+        -webkit-transition-duration: 0.4s;
+        transition-duration: 0.4s;
+        cursor: pointer;
+
+        &.mini {
+            height: 21px;
+            min-width: 120px;
+            padding: 0 20px;
+            margin: 0 0 1px 0;
+            background: $light-orange;
+            color: $dark-orange;
+        }
+
+    }
+
+    button.tool {
+        &:hover {
+            background: $extra-dark-blue;
+        }
+
+        &.disabled {
+            background: $light-grey;
+            color: $dark-grey;
+        }
+    }
+
+    button.tool, .tool, .mini-button-group {
+        height: 89px;
+        display: inline-block;
+        vertical-align: top;
+        margin: 20px 5px;
+    }
+
+    button.tool, a {
+        background: $light-blue;
+        color: $dark-blue;
+    }
+
+    a {
+        background-color: transparent;
+        height: inherit;
+        width: inherit;
+        margin: auto;
+        display: table-cell;
+        vertical-align: middle;
+        text-decoration: none;
+    }
+
+    .picker {
+        padding: 0;
+    }
+
+    .dimension {
+        height: 16px;
+        display: block;
+        margin: 15px;
+        position: relative;
+
+        .label {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .input {
+            width: 40px;
+            border: 1px solid $light-grey;
+            padding: 0 3px;
+
+            &.wrong-entry {
+                border: 1px solid $danger-red;
+            }
+        }
+
+        .tooltip {
+            background-color: $danger-red;
+            color: $white;
+            text-align: center;
+            padding: 1px 10px;
+            border-radius: 6px;
+            font-size: 10px;
+            position: absolute;
+            z-index: 1;
+            top: -1px;
+            left: 75px;
+            width: 150px;
+        }
+    }
+}

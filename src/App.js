@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import './App.css';
-import Pixel from './Partials/Pixel';
-import Tools from './Partials/Tools';
-import Mesh from './Images/Mesh';
-import Man from './Images/Man';
-import Rainbow from './Images/Rainbow';
+import Pixel    from './Partials/Pixel';
+import Tools    from './Partials/Tools';
+import Mesh     from './Images/Mesh';
+import Man      from './Images/Man';
+import Rainbow  from './Images/Rainbow';
 
 const dimensionsRange = {
     y: { default: 32, min: 10, max: 50 },
@@ -178,7 +177,7 @@ class App extends Component {
         }
 
         return (
-            <div className="app">
+            <div id="app">
                 <Tools
                     dimensionsRange={ dimensionsRange }
                     dimensions={ this.state.dimensions }
@@ -194,7 +193,7 @@ class App extends Component {
                     imageDownloaded={ this.imageDownloadedHandler }
                     presetImageHandler={ this.presetImageHandler }
                 />
-                <div className="image"
+                <div id="image"
                     style={{
                         height: this.state.pixels.length * 18,
                         width: this.state.pixels.length > 0 ? this.state.pixels[0].length * 18 : 0

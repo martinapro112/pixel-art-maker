@@ -1,22 +1,23 @@
-import React from 'react';
-import { CompactPicker } from 'react-color';
+import React                from 'react';
+import { CompactPicker }    from 'react-color';
 var dateFormat = require('dateformat');
 
 const Tools = (props) => {
     let exportPng =
         <button
+            className={ 'tool button ' + (props.disabledExport ? 'disabled' : '') }
             onClick={ props.exportToPngHandler }
-            disabled={ props.disabledExport } className={ props.disabledExport ? 'disabled' : null}
+            disabled={ props.disabledExport }
         >
             export<br />to<br />png
         </button>;
     if (props.pngLoading) {
-        exportPng = <button><div id="load"></div></button>;
+        exportPng = <button className="tool button"><div id="load"></div></button>;
     }
     else if (props.pngLink) {
         let date = new Date();
         exportPng =
-            <button>
+            <button className="tool button">
                 <a
                     href={ props.pngLink }
                     download={ 'pixel_art_' + dateFormat(date, 'yyyy-mm-dd-HH-MM-ss') + '.png' }
@@ -31,11 +32,11 @@ const Tools = (props) => {
     ['x', 'y'].forEach(dimension => {
         dimensions.push(
             <div className="dimension">
-                <span className="dimension-label">{ dimension }</span>
+                <span className="label">{ dimension }</span>
                 <input
                     type="number" name={ dimension }
                     className={
-                        'dimension-input ' + 
+                        'input ' + 
                         (
                             props.dimensionsRange[dimension].max < props.dimensions[dimension] ||
                             props.dimensionsRange[dimension].min > props.dimensions[dimension]
@@ -58,25 +59,25 @@ const Tools = (props) => {
     });
 
     return (
-        <div>
-            <button onClick={ props.resetImageHandler }>
+        <div id="tools">
+            <button className="tool button" onClick={ props.resetImageHandler }>
                 new<br />image
             </button>
             { exportPng }
-            <div className="picker">
+            <div className="tool picker">
                 <CompactPicker
                     color={ props.currentColor }
                     onChangeComplete={ props.setCurrentColorHandler }
                 />
             </div>
-            <div className="dimensions">
+            <div className="tool dimensions">
                 { dimensions }
             </div>
             <div className="mini-button-group">
-                <button className="mini-button" onClick={ props.presetImageHandler.bind(this, 'mesh') }>mesh</button><br />
-                <button className="mini-button" onClick={ props.presetImageHandler.bind(this, 'man') }>man</button><br />
-                <button className="mini-button" onClick={ props.presetImageHandler.bind(this, 'rainbow') }>rainbow</button><br />
-                <button className="mini-button" onClick={ props.presetImageHandler.bind(this, 'todo') }>todo</button>
+                <button className="tool mini" onClick={ props.presetImageHandler.bind(this, 'mesh') }>mesh</button><br />
+                <button className="tool mini" onClick={ props.presetImageHandler.bind(this, 'man') }>man</button><br />
+                <button className="tool mini" onClick={ props.presetImageHandler.bind(this, 'rainbow') }>rainbow</button><br />
+                <button className="tool mini" onClick={ props.presetImageHandler.bind(this, 'todo') }>todo</button>
             </div>
         </div>
     );

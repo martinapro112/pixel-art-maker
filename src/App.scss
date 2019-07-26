@@ -1,0 +1,38 @@
+$white: white;
+
+$dark-grey: #808B96;
+$light-grey: #D3D3D3;
+
+$extra-dark-blue: #2C3E50;
+$dark-blue: #2471A3;
+$light-blue: #D6EAF8;
+
+$dark-orange: #CA6F1E;
+$light-orange: #FAE5D3;
+
+$danger-red: #9f0500;
+
+#app {
+    text-align: center;
+
+    #image {
+        display: block;
+        margin: auto;
+    }
+}
+
+#load {
+    border: 16px solid $white;
+    border-radius: 50%;
+    border-top: 16px solid $dark-blue;
+    width: 40px;
+    height: 40px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
