@@ -31,7 +31,7 @@ const Tools = (props) => {
     let dimensions = [];
     ['x', 'y'].forEach(dimension => {
         dimensions.push(
-            <div className="dimension">
+            <div className="dimension" key={ 'dimension' + dimension }>
                 <span className="label">{ dimension }</span>
                 <input
                     type="number" name={ dimension }
