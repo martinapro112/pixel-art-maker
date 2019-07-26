@@ -136,3 +136,13 @@ button, a {
 .wrong-entry {
     border: 1px solid #9f0500;
 }
+
+a {
+    background-color: transparent;
+    height: inherit;
+    width: inherit;
+    margin: auto;
+    display: table-cell;
+    vertical-align: middle;
+    text-decoration: none;
+}
