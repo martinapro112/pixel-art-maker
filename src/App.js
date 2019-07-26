@@ -3,6 +3,8 @@ import './App.css';
 import Pixel from './Partials/Pixel';
 import Tools from './Partials/Tools';
 import Mesh from './Images/Mesh';
+import Man from './Images/Man';
+import Rainbow from './Images/Rainbow';
 
 const dimensionsRange = {
     y: { default: 32, min: 10, max: 50 },
@@ -141,13 +143,13 @@ class App extends Component {
             case 'mesh':
                 this.setState({ pixels: Mesh, presetImage: true });
                 break;
-            case 'todo1':
-                this.setState({ pixels: Mesh, presetImage: true });
+            case 'man':
+                this.setState({ pixels: Man, presetImage: true });
                 break;
-            case 'todo2':
-                this.setState({ pixels: Mesh, presetImage: true });
+            case 'rainbow':
+                this.setState({ pixels: Rainbow, presetImage: true });
                 break;
-            case 'todo3':
+            case 'todo':
                 this.setState({ pixels: Mesh, presetImage: true });
                 break;
             default:

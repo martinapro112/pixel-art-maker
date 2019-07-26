@@ -63,9 +63,9 @@ const Tools = (props) => {
             </div>
             <div className="mini-button-group">
                 <button className="mini-button" onClick={ props.presetImageHandler.bind(this, 'mesh') }>mesh</button><br />
-                <button className="mini-button" onClick={ props.presetImageHandler.bind(this, 'todo1') }>todo</button><br />
-                <button className="mini-button" onClick={ props.presetImageHandler.bind(this, 'todo2') }>todo</button><br />
-                <button className="mini-button" onClick={ props.presetImageHandler.bind(this, 'todo3') }>todo</button>
+                <button className="mini-button" onClick={ props.presetImageHandler.bind(this, 'man') }>man</button><br />
+                <button className="mini-button" onClick={ props.presetImageHandler.bind(this, 'rainbow') }>rainbow</button><br />
+                <button className="mini-button" onClick={ props.presetImageHandler.bind(this, 'todo') }>todo</button>
             </div>
         </div>
     );
