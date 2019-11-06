@@ -77,7 +77,7 @@ const Tools = (props) => {
                 <button className="tool mini" onClick={ props.presetImageHandler.bind(this, 'mesh') }>mesh</button><br />
                 <button className="tool mini" onClick={ props.presetImageHandler.bind(this, 'man') }>man</button><br />
                 <button className="tool mini" onClick={ props.presetImageHandler.bind(this, 'rainbow') }>rainbow</button><br />
-                <button className="tool mini" onClick={ props.presetImageHandler.bind(this, 'todo') }>todo</button>
+                <button className="tool mini" onClick={ props.presetImageHandler.bind(this, 'grumpy') }>grumpy</button>
             </div>
         </div>
     );

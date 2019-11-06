@@ -4,6 +4,7 @@ import Tools    from './Partials/Tools';
 import Mesh     from './Images/Mesh';
 import Man      from './Images/Man';
 import Rainbow  from './Images/Rainbow';
+import Grumpy   from './Images/Grumpy';
 
 const dimensionsRange = {
     y: { default: 32, min: 10, max: 50 },
@@ -147,7 +148,7 @@ class App extends Component {
             case 'mesh':    imagePixels = Mesh;     break;
             case 'man':     imagePixels = Man;      break;
             case 'rainbow': imagePixels = Rainbow;  break;
-            case 'todo':    imagePixels = Mesh;     break;
+            case 'grumpy':  imagePixels = Grumpy;   break;
             default: break;
         }
 
